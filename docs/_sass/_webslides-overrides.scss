@@ -1,8 +1,8 @@
 /* Fonts */
-@include font-face(SnoogleLT, "/static/fonts/SnoogleLT/SnoogleLT");
+@import url('https://fonts.googleapis.com/css?family=Lobster|Raleway');
 
 /* Colors */
-$color-brandMain: #ffcc00;
+$color-brandMain: #FF7C35;
 
 .logo {
   display: flex;
@@ -19,7 +19,7 @@ $color-brandMain: #ffcc00;
 }
 
 .logo-text {
-  font-family: SnoogleLT, sans-serif;
+  font-family: Lobster, sans-serif;
   font-size: 3.7rem;
   margin-left: 1.2rem;
   color: $color-brandMain;
@@ -37,4 +37,14 @@ main {
   @media screen and (max-width: 767px) {
     margin-top: 8.5rem;
   }
+}
+
+/* Typography update */
+html,
+body,
+input,
+select,
+textarea {
+  font-family: "Raleway", helvetica, arial, sans-serif;
+  font-size: 62.5%;
 }
