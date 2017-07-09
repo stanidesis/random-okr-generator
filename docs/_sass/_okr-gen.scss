@@ -43,3 +43,65 @@
 .text-white {
   color: #FFF;
 }
+
+// Custom Input
+.okr-input,
+.okr-input:hover,
+.okr-input:focus,
+.okr-input:active {
+  background: transparent;
+  border: none;
+  display: inline-block;
+  box-shadow: none;
+  outline: none;
+  letter-spacing: .2rem;
+  font-size: 100%;
+  text-transform: uppercase;
+  width: auto;
+  height: 3.2rem;
+  padding: 0rem;
+  transition: border-bottom .1s ease-in-out;
+}
+
+.okr-input {
+  border-bottom: 1px solid rgba($color-brandMain, .5);
+}
+.okr-input:hover,
+.okr-input:focus{
+  border-bottom: 1px solid rgba($color-brandMain, .7);
+}
+.okr-input:focus,{
+  border-bottom: 1px solid $color-brandMain;
+}
+
+// Generate Button
+.okr-btn {
+  color: white !important;
+  width: 5.8rem !important;
+  height: 5.8rem;
+  font-size: 2.5rem;
+  vertical-align: middle;
+  text-decoration: none;
+  text-align: center;
+  border: none !important;
+  border-radius: 50%;
+  background-color: $color-brandMain !important;
+  display: inline-block;
+  outline: 0;
+  overflow: hidden;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: all .2s ease-in-out !important;
+}
+
+.okr-btn:hover,
+.okr-btn:focus {
+  transform: scale(1.1) !important;
+  color: white;
+}
