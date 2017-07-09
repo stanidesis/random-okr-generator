@@ -2,7 +2,16 @@
   ;;(function () {
       "use strict"
       window.splashScreenCallback = function () {
-        // TODO
+        $('#make-your-own').on('click', function() {
+          window.webslides.goToSlide(2, true)
+        })
+        $('#share').jsSocials({
+          shares: ['facebook', 'twitter', 'linkedin', 'googleplus', 'email'],
+          url: 'http://www.stanleyidesis.com/random-okr-generator',
+          showLabel: false,
+          showCount: false,
+          shareIn: 'popup'
+        })
       }
     })()
 </script>

@@ -49,6 +49,7 @@
 .okr-input:hover,
 .okr-input:focus,
 .okr-input:active {
+  text-align: center;
   background: transparent;
   border: none;
   display: inline-block;
@@ -123,5 +124,14 @@
 
 #okr-gen-result {
   @extend .text-lobster;
+  @extemd .text-shadow;
   color: $color-brandMain;
+}
+
+// Social Shares
+#share {
+  a {
+    color: white;
+    border-radius: 50%;
+  }
 }

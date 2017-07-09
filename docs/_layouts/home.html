@@ -12,7 +12,7 @@
     </header>
     <main role="main">
       <article id="webslides" class="vertical">
-        <section class="bg-brand aligncenter slide" id="landing">
+        <section id="landing" class="bg-brand aligncenter slide">
           <span class="background dark" style="background-image:url('https://source.unsplash.com/7mUXaBBrhoA/')"></span>
           <div class="wrap text-white fadeIn">
             <a href="#">
@@ -27,7 +27,7 @@
             <p></p>
             <p></p>
             <p>
-              <a href="#generate" class="button cta-button radius" title="Make Your Own">
+              <a id="make-your-own" class="button cta-button radius" title="Make Your Own">
                 <svg class="fa-cogs">
                   <use xlink:href="#fa-cogs"></use>
                 </svg>
@@ -42,20 +42,20 @@
             </p>
           </div>
         </section>
-        <section class="bg-white slide" id="generate">
+        <section id="generate" class="bg-white slide">
 <!-- TODO choose a different image -->
-          <span class="background dark" style="background-image:url('https://source.unsplash.com/7mUXaBBrhoA/')"></span>
+          <span class="background dark" style="background-image:url('https://source.unsplash.com/sCdm5DiJb8w/')"></span>
           <div class="wrap">
             <div class="grid sm">
               <div class="column">
-                <form>
+                <form style="text-align: right;">
                   <p class="text-subtitle">
                     My company sells<br><input id="in-sells" class="okr-input" type="text" placeholder="cosmetics">to<br>
                     the <input id="in-industry" class="okr-input" type="text" placeholder="ugly people"><br>
                     industry, and our<br><input id="in-valueprop" class="okr-input" type="text" placeholder="DGAF attitude"> sets us apart.
                   </p>
                   <br>
-                  <button type="submit" class="okr-btn">
+                  <button type="submit" class="okr-btn" title="Generate OKR">
                     <svg class="fa-random">
                       <use xlink:href="#fa-random"></use>
                     </svg>
@@ -63,9 +63,14 @@
                 </form>
               </div>
               <div class="column okr-result-col">
-                  <h2 id="okr-gen-result">
-                    (your OKR appears here)
-                  </h2>
+                <h2 id="okr-gen-result">
+                  Your OKR Appears Here!
+                </h2>
+                <br>
+                <p>
+                  (Fill in the blanks to the left then click the button -- everything will be OK...R)
+                </p>
+                <div id="share"></div>
               </div>
             </div>
           </div>
