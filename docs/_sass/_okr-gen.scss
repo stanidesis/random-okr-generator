@@ -64,13 +64,11 @@
 }
 
 .okr-input {
-  border-bottom: 1px solid rgba($color-brandMain, .5);
+  border-bottom: 1px solid rgba($color-brandMain, .3);
 }
 .okr-input:hover,
-.okr-input:focus{
-  border-bottom: 1px solid rgba($color-brandMain, .7);
-}
-.okr-input:focus,{
+.okr-input:focus,
+.okr-input:active {
   border-bottom: 1px solid $color-brandMain;
 }
 
@@ -104,4 +102,26 @@
 .okr-btn:focus {
   transform: scale(1.1) !important;
   color: white;
+}
+
+// Generated portion
+.okr-result-col {
+  @extend .aligncenter;
+  /*  Copied from _colors.scss  */
+  border-left-width: 1px;
+  border-style: solid;
+  border-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
+  -webkit-border-image: -webkit-linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
+  -moz-border-image: -moz-linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
+  /* Center all the crap in this column vertically */
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#okr-gen-result {
+  @extend .text-lobster;
+  color: $color-brandMain;
 }
