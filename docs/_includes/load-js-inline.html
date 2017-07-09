@@ -8,8 +8,10 @@
     loadJS('/static/js/webslides.js', function() {
       window.webslides = jQuery('#webslides').webslides()
       loadJS('/static/js/jssocials.min.js', function() {
-        // Now remove the splash screen
-        loadJS('/static/js/jquery.splash.screen.js')
+        loadJS('/static/js/api.js', function() {
+          // Now remove the splash screen
+          loadJS('/static/js/jquery.splash.screen.js')
+        })
       })
     })
   })
