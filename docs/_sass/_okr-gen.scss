@@ -61,7 +61,7 @@
   width: auto;
   height: 3.2rem;
   padding: 0rem;
-  transition: border-bottom .1s ease-in-out;
+  transition: border-bottom .2s ease-in-out;
 }
 
 .okr-input {
@@ -74,6 +74,41 @@
 }
 
 // Generate Button
+.okr-button-wrapper {
+/*  TBD  */
+  position: relative;
+}
+
+.okr-button-loader {
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 5.8rem;
+  height: 5.8rem;
+  border: .6rem solid #FFF;
+  border-radius: 50%;
+  border-top: .6rem solid #FF7C35;
+  transition: all .2s ease-in-out !important;
+  -webkit-animation: spin 1s ease-in-out infinite;
+  animation: spin 1s ease-in-out infinite;
+  opacity: 0;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.okr-button-loader-loading {
+  opacity: 1;
+}
+
 .okr-btn {
   color: white !important;
   width: 5.8rem !important;
@@ -99,8 +134,7 @@
   transition: all .2s ease-in-out !important;
 }
 
-.okr-btn:hover,
-.okr-btn:focus {
+.okr-btn:hover {
   transform: scale(1.1) !important;
   color: white;
 }

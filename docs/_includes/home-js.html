@@ -2,15 +2,32 @@
   ;;(function () {
       "use strict"
       window.splashScreenCallback = function () {
+        // Setup generate button click
         $('#make-your-own').on('click', function() {
           window.webslides.goToSlide(2, true)
         })
+        // Setup social
         $('#share').jsSocials({
           shares: ['facebook', 'twitter', 'linkedin', 'googleplus', 'email'],
           url: 'http://www.stanleyidesis.com/random-okr-generator',
           showLabel: false,
           showCount: false,
           shareIn: 'popup'
+        })
+        
+        // Handle gen click
+        $('form').on('submit', function(event) {
+          event.preventDefault()
+          // Disable button temporarily
+          var button = $('#okr-button-submit')
+          button.prop('disabled', true)
+          // Show the spinner
+          $('div.okr-button-loader').addClass('okr-button-loader-loading')
+          // Work goes here!
+          setTimeout(function (){
+            button.prop('disabled', false)
+            $('div.okr-button-loader').removeClass('okr-button-loader-loading')
+          }, 2000)
         })
       }
     })()
