@@ -55,7 +55,9 @@ function generateOKR(callback) {
   var in2 = $('#in-industry').val()
   var in3 = $('#in-valueprop').val()
   if (window.inSells == in1 && window.inIndustry == in2 && window.inValueProp == in3) {
-    nextOKR(callback)
+    setTimeout(function() {
+      nextOKR(callback)
+    }, Math.random()*500 + 400)
     return
   }
 
