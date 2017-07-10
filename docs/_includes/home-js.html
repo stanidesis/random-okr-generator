@@ -25,6 +25,17 @@
           // Show the spinner
           $('div.okr-button-loader').addClass('okr-button-loader-loading')
           
+          // Check inputs
+          if ($('#in-sells').val() === '') {
+            $('#in-sells').val('databases')
+          }
+          if ($('#in-industry').val() === '') {
+            $('#in-industry').val('technology')
+          }
+          if ($('#in-valueprop').val() === '') {
+            $('#in-valueprop').val('installation')
+          }
+          
           generateOKR(function(okr, shareText) {
             $('#share').removeClass('okr-hidden')
             button.prop('disabled', false)
