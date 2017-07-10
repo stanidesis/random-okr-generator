@@ -11,10 +11,13 @@
           shareIn: 'popup'
         })
         
+        var runOnce = true
         // Handle gen click
         $('form').on('submit', function(event) {
           event.preventDefault()
-          
+          if (runOnce) {
+            $('#okr-gen-hint').fadeOut()
+          }
           // Disable button temporarily
           var button = $('#okr-button-submit')
           button.prop('disabled', true)
@@ -22,10 +25,12 @@
           // Show the spinner
           $('div.okr-button-loader').addClass('okr-button-loader-loading')
           
-          generateOKR(function(result) {
+          generateOKR(function(okr, shareText) {
+            $('#share').removeClass('okr-hidden')
             button.prop('disabled', false)
             $('div.okr-button-loader').removeClass('okr-button-loader-loading')
-            $('#okr-gen-result').text('“' + result + '”')
+            $('#okr-gen-result').text(okr)
+            $('#share').jsSocials('option', 'text', shareText)
           })
         })
       }

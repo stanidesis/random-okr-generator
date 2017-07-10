@@ -164,8 +164,14 @@
 
 // Social Shares
 #share {
-  a {
-    color: white;
-    border-radius: 50%;
-  }
+  transition: opacity .2s ease-in-out;  
+}
+
+#share a {
+  color: white;
+  border-radius: 50%;
+}
+
+.okr-hidden {
+  opacity: 0;
 }

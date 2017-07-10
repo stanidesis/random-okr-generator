@@ -48,6 +48,12 @@ window.verbifyOptions = [
 window.verbificationOptions = [
   'ification', 'ization'
 ]
+window.shareTexts = [
+  'Our winning strategy this quarter is to, {{REPLACE}} -- jealous?',
+  'Your OKRs will cower in fear before, {{REPLACE}}',
+  'That\'s it, we\'re pivoting to {{REPLACE}} and that\'s final',
+  'Attention all employees, stop what you\'re doing and start {{REPLACE}}'
+]
 
 function generateOKR(callback) {
   // Pull values
@@ -125,29 +131,32 @@ function nextOKR(callback) {
                               randomOption(window.verbificationOptions)))
     })
   }
+  var okr = ''
   switch(sentenceStructure) {
     case 0:
-      callback(randomOption(randomOption([window.increaseSyns, window.decreaseSyns])) +
+      okr = randomOption(randomOption([window.increaseSyns, window.decreaseSyns])) +
                ' ' + randomOption(window.nounOptions) + ' ' + randomOption(verbOptions) + ' by ' +
               numberToWord(randomValue) + ' ' + randomOption(window.valueModifierOptions) + 
-              pluralize(randomOption(window.nounOptions)))
+              pluralize(randomOption(window.nounOptions))
       break
     case 1:
-      callback(jsUcfirst(randomValue + '') + 'X our ' + randomOption(window.nounOptions) + ' ' + randomOption(verbOptions))
+      okr = jsUcfirst(randomValue + '') + 'X our ' + randomOption(window.nounOptions) + ' ' + randomOption(verbOptions)
       break
     case 2:
-      callback(randomOption(randomOption([window.startSyns, window.stopSyns])) +
-              ' ' + randomOption(verbOptions) + ' of the ' + randomOption(window.nounOptions))
+      okr = randomOption(randomOption([window.startSyns, window.stopSyns])) +
+              ' ' + randomOption(verbOptions) + ' of the ' + randomOption(window.nounOptions)
       break
     case 3:
-      callback(jsUcfirst(randomOption(verbOptions)) + ' the ' + randomOption(window.nounOptions) +
-              ' ' + numberToWord(randomValue) + ' times')
+      okr = jsUcfirst(randomOption(verbOptions)) + ' the ' + randomOption(window.nounOptions) +
+              ' ' + numberToWord(randomValue) + ' times'
       break
     case 4:
-      callback(randomOption(window.hideSyns) + ' all ' + randomOption(window.traceSyns) + ' of ' +
-              randomOption(window.nounOptions) + ' ' + randomOption(verbOptions))
+      okr = randomOption(window.hideSyns) + ' all ' + randomOption(window.traceSyns) + ' of ' +
+              randomOption(window.nounOptions) + ' ' + randomOption(verbOptions)
       break
   }
+  okr = '“' + okr + '”'
+  callback(okr, randomOption(window.shareTexts).replace('{{REPLACE}}', okr))
 }
 
 function numberToWord(integer) {
