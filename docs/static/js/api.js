@@ -23,21 +23,27 @@ window.stopSyns = [
   'Eliminate', 'Disrupt', 'Derail', 'Neutralize', 'Rein in', 'Quell', 'Abstain from', 'Suspend', 'Kill'
 ]
 window.hideSyns = [
-  'Hide', 'Conceal', 'Obliterate', 'Cover up', 'Enshroud', 'Blot out', 'Bury', 'Stash'
+  'Hide', 'Conceal', 'Obliterate', 'Cover up', 'Blot out', 'Bury', 'Stash'
 ]
 window.traceSyns = [
   'traces', 'hints', 'suggestions', 'tracks', 'residue', 'fragments', 'remnants', 'samples', 'footprints',
-  'clues', 'tracings', 'signs', 'records', 'leftovers', 'impressions', 'breadcrumbs', 'tracks'
+  'clues', 'tracings', 'signs', 'records', 'leftovers', 'impressions', 'tracks'
 ]
 window.unitOptions = [
   '%', 'percent', 'kilograms', 'kg', 'tons', 'visits', 'impressions', 'cubic feet', 'square feet',
-  'users', 'sign-ups', 'thousand', 'million', 'billion', 'trillion', 'lakhs', 'dollars', 'sales'
+  'users', 'sign-ups', 'lakhs', 'dollars', 'sales'
+]
+window.valueModifierOptions = [
+  '', 'dozen ', '', 'hundred ', '', 'thousand ', '', 'million ', '', 'billion ', '', 'trillion '
 ]
 window.verbEndingOptions = [
-  'ing', 'ion'
+  'ing', 'ion', 'ent'
 ]
 window.infinitiveVerbEndingsOptions = [
-  'e', 'sh'
+  '@', 'sh'
+]
+window.verbificationOptions = [
+  'ify', 'ization', 'ification'
 ]
 
 function generateOKR(callback) {
@@ -46,8 +52,7 @@ function generateOKR(callback) {
   var in2 = $('#in-industry').val()
   var in3 = $('#in-valueprop').val()
   if (window.inSells == in1 && window.inIndustry == in2 && window.inValueProp == in3) {
-    console.log('No change detected, returning')
-    callback()
+    nextOKR(callback)
     return
   }
 
@@ -55,29 +60,104 @@ function generateOKR(callback) {
   window.inSells = in1
   window.inIndustry = in2
   window.inValueProp = in3
+  window.sentenceStructure = getRandomInt(0, 5)
+  
+  // Get the nouns first (all sentence structs require a generic noun)
+  var queryTerm = window.inSells.toLowerCase().replace(/ /g, '+')
+  var request = $.ajax('https://api.datamuse.com/words?md=p&ml=' + queryTerm)
+    .done(function(data) {
+      var nounOptions = []
+      data.forEach(function(word) {
+        if (word.tags && word.tags.includes('n') &&
+            !word.tags.includes('adv') &&
+            !['the','it'].includes(word.word)) {
+          nounOptions.push(word.word)
+        }
+      })
+      window.nounOptions = nounOptions;
+      
+      // Verb request
+      queryTerm = randomOption([window.inIndustry, window.inValueProp])
+        .toLowerCase().replace(/ /g, '+')
+      var endingIn = window.sentenceStructure === 3 ? randomOption(window.infinitiveVerbEndingsOptions) : 
+        randomOption(window.verbEndingOptions)
+      request = $.ajax('https://api.datamuse.com/words?md=p&ml=' + queryTerm + '&sp=*' + endingIn)
+        .done(function(data) {
+          var verbOptions = []
+          data.forEach(function(word) {
+            if (word.tags && word.tags.includes('v')) {
+              verbOptions.push(word.word)
+            }
+          })
+          if (verbOptions.length < 10) {
+            // Oh god
+            window.nounOptions.forEach(function(noun) {
+              verbOptions.push(noun + randomOption(window.verbificationOptions))
+            })
+          }
+          window.verbOptions = verbOptions
+          nextOKR(callback)
+        })
+        .fail(function() {
+          alert('failed!')
+        })
+      })
+    .fail(function() {
+      alert('failed!')
+    })
+}
 
+function nextOKR(callback) {
   /*
   Sentence structure works like this:
     0: [Increase]/[Decrease] {NOUN} {VERB}-ing/ion by {VALUE} {UNIT}
     1: {VALUE}x our {NOUN} {VERB}-ing/ion
-    2: [Start]/[Stop] {VERB}-ing/ion the {NOUN}
+    2: [Start]/[Stop] {VERB}-ing/ion of the {NOUN}
     3: {VERB}-e/sh the {NOUN} {VALUE} times
     4: [Hide] all [traces] of {NOUN} {VERB}-ing/ion
   */
-  var sentenceStructure = getRandomInt(0, 5);
-  var randomValue = getRandomInt(1, 999)
-  // Get the nouns first (all structures require a generic noun)
-  var nounQuery = randomOption([window.inSells,window.inIndustry,window.inValueProp])
-    .toLowerCase().replace(/ /g, '+')
-  var request = $.ajax('https://api.datamuse.com/words?md=p&ml='+nounQuery)
-    .done(function(data){
-      var jsonNounResult = JSON.parse(data)
-      var nounOptions = []
-      
-    })
-    .fail(function() {
-      alert('failed!')
-    })
+  var randomValue = getRandomInt(1, 101)
+  switch(getRandomInt(0, 5)) {
+    case 0:
+      callback(randomOption(randomOption([window.increaseSyns, window.decreaseSyns])) +
+               ' ' + randomOption(window.nounOptions) + ' ' + randomOption(window.verbOptions) + ' by ' +
+              numberToWord(randomValue) + ' ' + randomOption(window.valueModifierOptions) + 
+              pluralize(randomOption(window.nounOptions)))
+      break
+    case 1:
+      callback(jsUcfirst(randomValue + '') + 'X our ' + randomOption(window.nounOptions) + ' ' + randomOption(window.verbOptions))
+      break
+    case 2:
+      callback(randomOption(randomOption([window.startSyns, window.stopSyns])) +
+              ' ' + randomOption(window.verbOptions) + ' of the ' + randomOption(window.nounOptions))
+      break
+    case 3:
+      callback(jsUcfirst(randomOption(window.verbOptions)) + ' the ' + randomOption(window.nounOptions) +
+              ' ' + numberToWord(randomValue) + ' times')
+      break
+    case 4:
+      callback(randomOption(window.hideSyns) + ' all ' + randomOption(window.traceSyns) + ' of ' +
+              randomOption(window.nounOptions) + ' ' + randomOption(window.verbOptions))
+      break
+  }
+}
+
+function numberToWord(integer) {
+  if (integer > 10) {
+    return integer + ''
+  }
+  return ['one','two','three','four','five','six','seven','eight','nine','ten'][integer - 1]
+}
+
+function pluralize(noun) {
+  if (noun.charAt(noun.length - 1) == 's') {
+    return noun
+  }
+  return noun + 's'
+}
+
+function jsUcfirst(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1)
 }
         
 function randomOption(array) {
