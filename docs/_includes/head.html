@@ -5,31 +5,31 @@
 
   <!-- Favicon -->
   <!-- For IE 11, Chrome, Firefox, Safari, Opera -->
-  <link rel="icon" href="/static/images/icon-16.png" sizes="16x16" type="image/png">
-  <link rel="icon" href="/static/images/icon-32.png" sizes="32x32" type="image/png">
-  <link rel="icon" href="/static/images/icon-48.png" sizes="48x48" type="image/png">
-  <link rel="icon" href="/static/images/icon-64.png" sizes="64x64" type="image/png">
+  <link rel="icon" href="{{ '/static/images/icon-16.png' | prepend:site.baseurl }}" sizes="16x16" type="image/png">
+  <link rel="icon" href="{{ '/static/images/icon-32.png' | prepend:site.baseurl }}" sizes="32x32" type="image/png">
+  <link rel="icon" href="{{ '/static/images/icon-48.png' | prepend:site.baseurl }}" sizes="48x48" type="image/png">
+  <link rel="icon" href="{{ '/static/images/icon-64.png' | prepend:site.baseurl }}" sizes="64x64" type="image/png">
 
   <!--
     Mobile window themeing
   -->
 
   <!-- Chrome, Firefox OS, Opera and Vivaldi -->
-  <meta name="theme-color" content="#ffcc00">
+  <meta name="theme-color" content="#FF7C35">
   <!-- Windows Phone -->
-  <meta name="msapplication-navbutton-color" content="#ffcc00">
+  <meta name="msapplication-navbutton-color" content="#FF7C35">
   <!-- iOS Safari -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="#ffcc00">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#FF7C35">
 
   <!-- Setup SEO Variables Up Top -->
   {% seo %}
 
   <!-- loadCSS -->
-  <link rel="preload" href="/static/main.css" as="style" onload="this.rel='stylesheet';">
-  <noscript><link rel="stylesheet" href="/static/main.css"></noscript>
+  <link rel="preload" href="{{ '/static/main.css' | prepend:site.baseurl }}" as="style" onload="this.rel='stylesheet';">
+  <noscript><link rel="stylesheet" href="{{ '/static/main.css' | prepend:site.baseurl }}"></noscript>
   <!-- loadCSS Font-Awesome -->
-  <link rel="preload" href="/static/font-awesome/css/font-awesome.min.css" as="style" onload="this.rel='stylesheet';">
-  <noscript><link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css"></noscript>
+  <link rel="preload" href="{{ '/static/font-awesome/css/font-awesome.min.css' | prepend:site.baseurl }}" as="style" onload="this.rel='stylesheet';">
+  <noscript><link rel="stylesheet" href="{{ '/static/font-awesome/css/font-awesome.min.css' | prepend:site.baseurl }}"></noscript>
 
   <!-- loadCSS -->
   {% include load-css-inline.html %}
