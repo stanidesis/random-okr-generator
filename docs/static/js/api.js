@@ -42,8 +42,11 @@ window.verbEndingOptions = [
 window.infinitiveVerbEndingsOptions = [
   '@', 'sh'
 ]
+window.verbifyOptions = [
+  'ify', 'ize'
+]
 window.verbificationOptions = [
-  'ify', 'ization', 'ification'
+  'ification', 'ization'
 ]
 
 function generateOKR(callback) {
@@ -89,12 +92,6 @@ function generateOKR(callback) {
               verbOptions.push(word.word)
             }
           })
-          if (verbOptions.length < 10) {
-            // Oh god
-            window.nounOptions.forEach(function(noun) {
-              verbOptions.push(noun + randomOption(window.verbificationOptions))
-            })
-          }
           window.verbOptions = verbOptions
           nextOKR(callback)
         })
@@ -117,27 +114,36 @@ function nextOKR(callback) {
     4: [Hide] all [traces] of {NOUN} {VERB}-ing/ion
   */
   var randomValue = getRandomInt(1, 101)
-  switch(getRandomInt(0, 5)) {
+  var sentenceStructure = getRandomInt(0, 5)
+  // Adjust verbs if necessary
+  var verbOptions = window.verbOptions.slice()
+  if (verbOptions.length < 2) {
+    window.nounOptions.forEach(function(word) {
+      verbOptions.push(word + (sentenceStructure == 3 ? randomOption(window.verbifyOptions) : 
+                              randomOption(window.verbificationOptions)))
+    })
+  }
+  switch(sentenceStructure) {
     case 0:
       callback(randomOption(randomOption([window.increaseSyns, window.decreaseSyns])) +
-               ' ' + randomOption(window.nounOptions) + ' ' + randomOption(window.verbOptions) + ' by ' +
+               ' ' + randomOption(window.nounOptions) + ' ' + randomOption(verbOptions) + ' by ' +
               numberToWord(randomValue) + ' ' + randomOption(window.valueModifierOptions) + 
               pluralize(randomOption(window.nounOptions)))
       break
     case 1:
-      callback(jsUcfirst(randomValue + '') + 'X our ' + randomOption(window.nounOptions) + ' ' + randomOption(window.verbOptions))
+      callback(jsUcfirst(randomValue + '') + 'X our ' + randomOption(window.nounOptions) + ' ' + randomOption(verbOptions))
       break
     case 2:
       callback(randomOption(randomOption([window.startSyns, window.stopSyns])) +
-              ' ' + randomOption(window.verbOptions) + ' of the ' + randomOption(window.nounOptions))
+              ' ' + randomOption(verbOptions) + ' of the ' + randomOption(window.nounOptions))
       break
     case 3:
-      callback(jsUcfirst(randomOption(window.verbOptions)) + ' the ' + randomOption(window.nounOptions) +
+      callback(jsUcfirst(randomOption(verbOptions)) + ' the ' + randomOption(window.nounOptions) +
               ' ' + numberToWord(randomValue) + ' times')
       break
     case 4:
       callback(randomOption(window.hideSyns) + ' all ' + randomOption(window.traceSyns) + ' of ' +
-              randomOption(window.nounOptions) + ' ' + randomOption(window.verbOptions))
+              randomOption(window.nounOptions) + ' ' + randomOption(verbOptions))
       break
   }
 }

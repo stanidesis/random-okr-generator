@@ -10,6 +10,7 @@
           showCount: false,
           shareIn: 'popup'
         })
+        
         // Handle gen click
         $('form').on('submit', function(event) {
           event.preventDefault()
@@ -21,10 +22,10 @@
           // Show the spinner
           $('div.okr-button-loader').addClass('okr-button-loader-loading')
           
-          generateOKR(function(value) {
-            alert(value)
+          generateOKR(function(result) {
             button.prop('disabled', false)
             $('div.okr-button-loader').removeClass('okr-button-loader-loading')
+            $('#okr-gen-result').text('“' + result + '”')
           })
         })
       }
