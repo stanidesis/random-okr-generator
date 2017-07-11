@@ -142,12 +142,16 @@
 // Generated portion
 .okr-result-col {
   @extend .aligncenter;
-  /*  Copied from _colors.scss  */
-  border-left-width: 1px;
-  border-style: solid;
-  border-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
-  -webkit-border-image: -webkit-linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
-  -moz-border-image: -moz-linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
+  /* Border is gone on mobile */
+  border-left-width: 0px;
+  @media screen and (min-width: 768px) {
+    /*  Copied from _colors.scss  */
+    border-left-width: 1px;
+    border-style: solid;
+    border-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
+    -webkit-border-image: -webkit-linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
+    -moz-border-image: -moz-linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
+  }
   /* Center all the crap in this column vertically */
   display: -webkit-flex;
   display: flex;
@@ -158,7 +162,7 @@
 
 #okr-gen-result {
   @extend .text-lobster;
-  @extemd .text-shadow;
+  @extend .text-shadow;
   color: $color-brandMain;
 }
 
