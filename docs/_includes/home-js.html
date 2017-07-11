@@ -11,6 +11,12 @@
           shareIn: 'popup'
         })
         
+        // Setup clipboard
+        var clipboard = new Clipboard('#okr-gen-result')
+        clipboard.on('success', function(e) {
+          alert('copied to clipboard!')
+        })
+        
         // Load up sample inputs
         var companyNames = [
           'Google', 
@@ -71,6 +77,7 @@
             button.prop('disabled', false)
             $('div.okr-button-loader').removeClass('okr-button-loader-loading')
             $('#okr-gen-result').text(okr)
+            $('#okr-gen-result').attr('data-clipboard-text', okr)
             $('#share').jsSocials('option', 'text', shareText)
           })
         })

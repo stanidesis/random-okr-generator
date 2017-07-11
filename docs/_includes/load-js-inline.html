@@ -6,8 +6,10 @@
   loadJS('{{ "/static/js/jquery-3.1.1.min.js" | prepend:site.baseurl }}', function () {
     loadJS('{{ "/static/js/jssocials.min.js" | prepend:site.baseurl }}', function() {
       loadJS('{{ "/static/js/api.js" | prepend:site.baseurl }}', function() {
-        // Now remove the splash screen
-        loadJS('{{ "/static/js/jquery.splash.screen.js" | prepend:site.baseurl }}')
+        loadJS('{{ "/static/js/clipboard.min.js" | prepend:site.baseurl }}', function() {
+          // Now remove the splash screen
+          loadJS('{{ "/static/js/jquery.splash.screen.js" | prepend:site.baseurl }}')
+        })
       })
     })
   })
