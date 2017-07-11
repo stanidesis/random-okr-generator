@@ -72,43 +72,44 @@ function generateOKR(callback) {
   window.in2 = in2
   window.in3 = in3
   window.sentenceStructure = getRandomInt(0, 5)
+  window.nounOptions = []
+  window.verbOptions = []
   
-  // Get the nouns first (all sentence structs require a generic noun)
-  var queryTerm = window.in1.toLowerCase().replace(/ /g, '+')
-  var request = $.ajax('https://api.datamuse.com/words?md=p&ml=' + queryTerm)
+  // Get words from the company name first (all sentence structs require a generic noun)
+  var queryTerm = window.in1.toLowerCase().replace(/ /g, ',')
+  getWords(queryTerm, null, function(result) {
+    if (!result) { callback() }
+    queryTerm = window.in3.toLowerCase().replace(/ /g, ',')
+    var topics = window.in2.toLowerCase().split(' ').slice(0,5).join(',')
+    getWords(queryTerm, topics, function(result) {
+      if (!result) { callback() }
+      getWords(window.in2.toLowerCase().replace(/ /g, ','), null, function(result) {
+        if (!result) { callback() }
+        nextOKR(callback)
+      })
+    })
+  })
+}
+
+function getWords(searchTerm, topics, callback) {
+  $.ajax('https://api.datamuse.com/words?md=p&ml=' + searchTerm + 
+         (topics ? '&topics=' + topics : ''))
     .done(function(data) {
-      var nounOptions = []
       data.forEach(function(word) {
-        if (word.tags && word.tags.includes('n') &&
-            !word.tags.includes('adv') &&
+        if (word.tags) {
+          if (word.tags.includes('v')) {
+            window.verbOptions.push(word.word)
+          }
+          if (word.tags.includes('n') &&
             !['the','it'].includes(word.word)) {
-          nounOptions.push(word.word)
+            window.nounOptions.push(word.word)
+          }
         }
       })
-      window.nounOptions = nounOptions;
-      
-      // Verb request
-      queryTerm = randomOption([window.in2, window.in3])
-        .toLowerCase().replace(/ /g, '+')
-      var endingIn = window.sentenceStructure === 3 ? randomOption(window.infinitiveVerbEndingsOptions) : 
-        randomOption(window.verbEndingOptions)
-      request = $.ajax('https://api.datamuse.com/words?md=p&ml=' + queryTerm + '&sp=*' + endingIn)
-        .done(function(data) {
-          var verbOptions = []
-          data.forEach(function(word) {
-            if (word.tags && word.tags.includes('v')) {
-              verbOptions.push(word.word)
-            }
-          })
-          window.verbOptions = verbOptions
-          nextOKR(callback)
-        })
-        .fail(function() {
-          alert('failed!')
-        })
-      })
+      callback(true)
+    })
     .fail(function() {
-      alert('failed!')
+      callback(false)
     })
 }
 
@@ -125,7 +126,7 @@ function nextOKR(callback) {
   var sentenceStructure = getRandomInt(0, 5)
   // Adjust verbs if necessary
   var verbOptions = window.verbOptions.slice()
-  if (verbOptions.length < 10) {
+  if (nounOptions.length - verbOptions.length > 10) {
     window.nounOptions.forEach(function(word) {
       verbOptions.push(word + (sentenceStructure == 3 ? randomOption(window.verbifyOptions) : 
                               randomOption(window.verbificationOptions)))
