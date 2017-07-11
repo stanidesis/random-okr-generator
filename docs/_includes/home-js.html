@@ -14,7 +14,12 @@
         // Setup clipboard
         var clipboard = new Clipboard('#okr-gen-result')
         clipboard.on('success', function(e) {
-          alert('copied to clipboard!')
+          spop({
+            template: '<h5 class="spop-title">Success</h5>Copied your OKR to the clipboard!',
+            position: 'bottom-center',
+            style: 'success',
+            autoclose: 3000
+          });
         })
         
         // Load up sample inputs
@@ -79,6 +84,15 @@
           }
           
           generateOKR(function(okr, shareText) {
+            if (!okr) {
+              spop({
+                template: '<h5 class="spop-title">Uh Oh</h5>Our new OKR: <em>Reduce the OKRififcation Error Rate by 85%</em>',
+                position: 'bottom-center',
+                style: 'error',
+                autoclose: 5000
+              });
+              return
+            }
             $('#share').removeClass('okr-hidden')
             button.prop('disabled', false)
             $('div.okr-button-loader').removeClass('okr-button-loader-loading')

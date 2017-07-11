@@ -36,12 +36,6 @@ window.unitOptions = [
 window.valueModifierOptions = [
   '', 'dozen ', '', 'hundred ', '', 'thousand ', '', 'million ', '', 'billion ', '', 'trillion '
 ]
-window.verbEndingOptions = [
-  'ing', 'ion', 'ent'
-]
-window.infinitiveVerbEndingsOptions = [
-  '@', 'sh'
-]
 window.verbifyOptions = [
   'ify', 'ize'
 ]
