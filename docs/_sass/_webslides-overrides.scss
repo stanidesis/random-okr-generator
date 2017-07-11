@@ -43,13 +43,6 @@ header {
   border-bottom: .2rem solid $color-brandMain;
 }
 
-/* Give room for content beneath the header to fit */
-main {
-  @media screen and (max-width: 767px) {
-    margin-top: 8.5rem;
-  }
-}
-
 /* Typography update */
 html,
 body,
