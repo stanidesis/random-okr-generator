@@ -17,23 +17,6 @@
   margin-right: .8rem
 }
 
-// Posts
-
-.post > p,
-.post ul li {
-  @extend .text-intro;
-}
-
-.post blockquote {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  margin-left: 5rem;
-  padding-left: 1.5rem;
-  border-left: .3rem solid $color-brandMain;
-}
-
-// End post
-
 // Typeface
 .text-lobster {
   font-family: "lobster", arial, sans;

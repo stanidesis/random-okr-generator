@@ -11,6 +11,36 @@
           shareIn: 'popup'
         })
         
+        // Load up sample inputs
+        var companyNames = [
+          'Google', 
+          'Microsoft',
+          'TiVo',
+          'Netflix', 
+          'Apple',
+          'Facebook'
+        ]
+        var companySells = [
+          'Internet Advertising',
+          'Software',
+          'Digital Video Recorders',
+          'Video Streaming',
+          'iPhones',
+          'User Data'
+        ]
+        var companySellsTo = [
+          'Business',
+          'The World',
+          'Cable Watchers',
+          'Everyone',
+          'People With Money',
+          'Don\'t Worry About It'
+        ]
+        var prefillChoice = Math.floor(Math.random() * (6 - 0))
+        $('#in-1').prop('placeholder', companyNames[prefillChoice])
+        $('#in-2').prop('placeholder', companySells[prefillChoice])
+        $('#in-3').prop('placeholder', companySellsTo[prefillChoice])
+        
         var runOnce = true
         // Handle gen click
         $('form').on('submit', function(event) {
@@ -26,14 +56,14 @@
           $('div.okr-button-loader').addClass('okr-button-loader-loading')
           
           // Check inputs
-          if ($('#in-sells').val() === '') {
-            $('#in-sells').val('databases')
+          if ($('#in-1').val() === '') {
+            $('#in-1').val($('#in-1').prop('placeholder'))
           }
-          if ($('#in-industry').val() === '') {
-            $('#in-industry').val('technology')
+          if ($('#in-2').val() === '') {
+            $('#in-2').val($('#in-2').prop('placeholder'))
           }
-          if ($('#in-valueprop').val() === '') {
-            $('#in-valueprop').val('installation')
+          if ($('#in-3').val() === '') {
+            $('#in-3').val($('#in-3').prop('placeholder'))
           }
           
           generateOKR(function(okr, shareText) {

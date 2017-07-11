@@ -1,7 +1,7 @@
 // Setup variables to track the inputs for change/no-change
-window.inSells = ''
-window.inIndustry = ''
-window.inValueProp = ''
+window.in1 = ''
+window.in2 = ''
+window.in3 = ''
 // Track parsed results
 window.nounOptions = []
 window.verbOptions = []
@@ -57,10 +57,10 @@ window.shareTexts = [
 
 function generateOKR(callback) {
   // Pull values
-  var in1 = $('#in-sells').val()
-  var in2 = $('#in-industry').val()
-  var in3 = $('#in-valueprop').val()
-  if (window.inSells == in1 && window.inIndustry == in2 && window.inValueProp == in3) {
+  var in1 = $('#in-1').val()
+  var in2 = $('#in-2').val()
+  var in3 = $('#in-3').val()
+  if (window.in1 == in1 && window.in2 == in2 && window.in3 == in3) {
     setTimeout(function() {
       nextOKR(callback)
     }, Math.random()*500 + 400)
@@ -68,13 +68,13 @@ function generateOKR(callback) {
   }
 
   // Assign to window vars
-  window.inSells = in1
-  window.inIndustry = in2
-  window.inValueProp = in3
+  window.in1 = in1
+  window.in2 = in2
+  window.in3 = in3
   window.sentenceStructure = getRandomInt(0, 5)
   
   // Get the nouns first (all sentence structs require a generic noun)
-  var queryTerm = window.inSells.toLowerCase().replace(/ /g, '+')
+  var queryTerm = window.in1.toLowerCase().replace(/ /g, '+')
   var request = $.ajax('https://api.datamuse.com/words?md=p&ml=' + queryTerm)
     .done(function(data) {
       var nounOptions = []
@@ -88,7 +88,7 @@ function generateOKR(callback) {
       window.nounOptions = nounOptions;
       
       // Verb request
-      queryTerm = randomOption([window.inIndustry, window.inValueProp])
+      queryTerm = randomOption([window.in2, window.in3])
         .toLowerCase().replace(/ /g, '+')
       var endingIn = window.sentenceStructure === 3 ? randomOption(window.infinitiveVerbEndingsOptions) : 
         randomOption(window.verbEndingOptions)
@@ -121,11 +121,11 @@ function nextOKR(callback) {
     3: {VERB}-e/sh the {NOUN} {VALUE} times
     4: [Hide] all [traces] of {NOUN} {VERB}-ing/ion
   */
-  var randomValue = getRandomInt(1, 101)
+  var randomValue = getRandomInt(2, 101)
   var sentenceStructure = getRandomInt(0, 5)
   // Adjust verbs if necessary
   var verbOptions = window.verbOptions.slice()
-  if (verbOptions.length < 2) {
+  if (verbOptions.length < 10) {
     window.nounOptions.forEach(function(word) {
       verbOptions.push(word + (sentenceStructure == 3 ? randomOption(window.verbifyOptions) : 
                               randomOption(window.verbificationOptions)))
