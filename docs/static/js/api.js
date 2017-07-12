@@ -40,7 +40,7 @@ window.verbifyOptions = [
   'ify', 'ize'
 ]
 window.verbificationOptions = [
-  'ification', 'ization'
+  '-ification', '-ization', '-ery', '-ication',
 ]
 window.shareTexts = [
   'Our winning strategy this quarter is to, {{REPLACE}} -- jealous?',
@@ -118,40 +118,40 @@ function nextOKR(callback) {
   */
   var randomValue = getRandomInt(2, 101)
   var sentenceStructure = getRandomInt(0, 5)
-  // Adjust verbs if necessary
-  var verbOptions = window.verbOptions.slice()
-  if (nounOptions.length - verbOptions.length > 10) {
-    window.nounOptions.forEach(function(word) {
-      verbOptions.push(word + (sentenceStructure == 3 ? randomOption(window.verbifyOptions) : 
-                              randomOption(window.verbificationOptions)))
-    })
-  }
+  var verbifyNoun = window.verbOptions.size < 2 || (getRandomInt(0, 100) > 89)
   var okr = ''
   switch(sentenceStructure) {
     case 0:
       okr = randomOption(randomOption([window.increaseSyns, window.decreaseSyns])) +
-               ' ' + randomOption(window.nounOptions) + ' ' + randomOption(verbOptions) + ' by ' +
+               ' ' + randomOption(window.nounOptions) + ' ' + getRandomVerb(sentenceStructure, verbifyNoun) + ' by ' +
               numberToWord(randomValue) + ' ' + randomOption(window.valueModifierOptions) + 
               pluralize(randomOption(window.nounOptions))
       break
     case 1:
-      okr = jsUcfirst(randomValue + '') + 'X our ' + randomOption(window.nounOptions) + ' ' + randomOption(verbOptions)
+      okr = jsUcfirst(randomValue + '') + 'X our ' + randomOption(window.nounOptions) + ' ' + 
+        getRandomVerb(sentenceStructure, verbifyNoun)
       break
     case 2:
       okr = randomOption(randomOption([window.startSyns, window.stopSyns])) +
-              ' ' + randomOption(verbOptions) + ' of the ' + randomOption(window.nounOptions)
+              ' ' + getRandomVerb(sentenceStructure, verbifyNoun) + ' of the ' + randomOption(window.nounOptions)
       break
     case 3:
-      okr = jsUcfirst(randomOption(verbOptions)) + ' the ' + randomOption(window.nounOptions) +
+      okr = jsUcfirst(getRandomVerb(sentenceStructure, verbifyNoun)) + ' the ' + randomOption(window.nounOptions) +
               ' ' + numberToWord(randomValue) + ' times'
       break
     case 4:
       okr = randomOption(window.hideSyns) + ' all ' + randomOption(window.traceSyns) + ' of ' +
-              randomOption(window.nounOptions) + ' ' + randomOption(verbOptions)
+              randomOption(window.nounOptions) + ' ' + getRandomVerb(sentenceStructure, verbifyNoun)
       break
   }
   okr = '“' + okr + '”'
   callback(okr, randomOption(window.shareTexts).replace('{{REPLACE}}', okr))
+}
+
+function getRandomVerb(sentenceStructure, shouldVerbify) {
+  if (!shouldVerbify) { return randomOption(window.verbOptions) }
+  return randomOption(window.nounOptions) + 
+    (sentenceStructure == 3 ? randomOption(window.verbifyOptions) : randomOption(window.verbificationOptions))
 }
 
 function numberToWord(integer) {
