@@ -43,16 +43,16 @@
           </div>
         </section>
         <a id="generate"></a>
-        <section class="bg-white slide slide-top">
+        <section class="bg-light slide slide-top">
           <span class="background dark" style="background-image:url('https://source.unsplash.com/CabUqKlvKX0/')"></span>
           <div class="wrap">
               <div class="okr-entry">
                 <form class="okr-form">
-                  <h3>
+                  <h4>
                     My company is <input id="in-1" class="okr-input" type="text" placeholder="tivo" onkeypress="this.style.width = ((this.value.length) * 4) + 'rem';">
                     , and we sell <input id="in-2" class="okr-input" type="text" placeholder="digital video recorders">
                     to <input id="in-3" class="okr-input" type="text" placeholder="cable owners">.
-                  </h3>
+                  </h4>
                   <br>
                   <div class="okr-button-wrapper">
                     <button type="submit" class="okr-btn" id="okr-button-submit" title="Generate OKR">
@@ -64,17 +64,15 @@
                   </div>
                 </form>
               </div>
-              <div>
-                <h2 id="okr-gen-result" 
-                    title="Click to copy to clipboard" 
-                    data-clipboard-text="Generate an OKR, then click on the title to copy :D"
-                    data-balloon="📋 Click or tap to copy 📋"
-                    data-balloon-pos="up">
-                  Your OKR Appears Here!
-                </h2>
+              <div class="content-center" style="width: unset !important; margin: 0 -2.4rem;">
+                <div class="okr-arrow-down"></div>
+                <h1 id="okr-gen-result" 
+                    title="Click to copy to clipboard">
+                  Your OKR Appears Here.
+                </h1>
                 <br>
                 <p id="okr-gen-hint">
-                  (Fill in the blanks to the left then click the button -- everything will be OK...R)
+                  Fill in the blanks up top, then click the button -- everything will be OK...R
                 </p>
                 <div id="share" class="okr-hidden"></div>
               </div>
