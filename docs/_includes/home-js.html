@@ -54,9 +54,6 @@
         if (window.location.href.includes('ref=producthunt')) {
           prefillChoice = 6
         }
-        function resizeInput($input) {
-          $input.attr('size', $input.val().length);
-        }
         
         $('#in-1').prop('placeholder', companyNames[prefillChoice])
         $('#in-2').prop('placeholder', companySells[prefillChoice])
@@ -101,7 +98,7 @@
             button.prop('disabled', false)
             $('div.okr-button-loader').removeClass('okr-button-loader-loading')
             $('#okr-gen-result').text(okr)
-            $('#okr-gen-result').attr('data-clipboard-text', okr)
+            $('#okr-gen-result').attr('data-clipboard-text', okr + ' Generate a random OKR at http://bit.ly/random-okr-generator')
             $('#share').jsSocials('option', 'text', shareText)
           })
         })
