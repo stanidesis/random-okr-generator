@@ -26,7 +26,7 @@
         var companyNames = [
           'Google', 
           'Microsoft',
-          'TiVo',
+          'Sears',
           'Netflix', 
           'Apple',
           'Facebook',
@@ -35,7 +35,7 @@
         var companySells = [
           'Internet Advertising',
           'Software',
-          'Digital Video Recorders',
+          'American Dream',
           'Video Streaming',
           'iPhones',
           'User Data',
@@ -44,16 +44,20 @@
         var companySellsTo = [
           'Business',
           'The World',
-          'Cable Watchers',
+          'No one',
           'Everyone',
-          'People With Money',
-          'Don\'t Worry About It',
+          'People w/Hands',
+          'Lolololol',
           'Kittens'
         ]
         var prefillChoice = Math.floor(Math.random() * (6 - 0))
         if (window.location.href.includes('ref=producthunt')) {
           prefillChoice = 6
         }
+        function resizeInput($input) {
+          $input.attr('size', $input.val().length);
+        }
+        
         $('#in-1').prop('placeholder', companyNames[prefillChoice])
         $('#in-2').prop('placeholder', companySells[prefillChoice])
         $('#in-3').prop('placeholder', companySellsTo[prefillChoice])
